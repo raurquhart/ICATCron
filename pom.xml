@@ -1,0 +1,73 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+   		<artifactId>common</artifactId>
+   		<groupId>ca.sfu.icat</groupId>
+   		<version>1.0.0-SNAPSHOT</version>
+   	</parent>
+
+  <groupId>ca.sfu.icat</groupId>
+  <artifactId>ICATCron</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>ICATCron</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+      <javadocOutputDirectory>Doc</javadocOutputDirectory>
+  </properties>
+
+    <organization>
+   		<name>SFU IT Services - ICAT</name>
+   	</organization>
+
+   	<developers>
+   		<developer>
+   			<name>Rob Urquhart</name>
+   			<email>robert@sfu.ca</email>
+   		</developer>
+   	</developers>
+
+
+  <dependencies>
+
+      <dependency>
+    	<artifactId>xstream</artifactId>
+    	<groupId>com.thoughtworks.xstream</groupId>
+      </dependency>
+
+      <dependency>
+          <artifactId>log4j</artifactId>
+          <groupId>log4j</groupId>
+          <version>1.2.17</version>
+      </dependency>
+
+      <!-- Testing frameworks -->
+
+      <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.11</version>
+          <scope>test</scope>
+      </dependency>
+
+      <dependency>
+          <artifactId>wounit</artifactId>
+          <groupId>com.wounit</groupId>
+          <version>1.2.1</version>
+          <scope>test</scope>
+      </dependency>
+
+      <dependency>
+          <groupId>org.mockito</groupId>
+          <artifactId>mockito-core</artifactId>
+          <version>1.9.5</version>
+          <scope>test</scope>
+      </dependency>
+  </dependencies>
+</project>

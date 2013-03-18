@@ -1,0 +1,13 @@
+.DS_Store
+*.class  
+build/   
+bin/    
+/target/  
+/Resources/Java/
+lib/
+*.xcodeproj/
+.idea/workspace.xml
+.idea/tasks.xml
+*.iws
+/target/
+credentials.json
