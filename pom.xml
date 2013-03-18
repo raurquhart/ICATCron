@@ -14,7 +14,9 @@
   <packaging>jar</packaging>
 
   <name>ICATCron</name>
-  <url>http://maven.apache.org</url>
+  <scm>
+      <url>git@github.com:raurquhart/ICATCron.git</url>
+  </scm>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
