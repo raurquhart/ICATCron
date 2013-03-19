@@ -15,6 +15,11 @@ import java.util.*;
 
 import static junit.framework.TestCase.*;
 
+/**
+ * Tests for CronTab and CronTabEntry.
+ * This tests both classes because they are so closely related, and the only way to
+ * really test CronTab included testing CronTabEntry.
+ */
 @SuppressWarnings("UnusedDeclaration")
 public class TestCronTab {
 
@@ -52,7 +57,7 @@ public class TestCronTab {
     @Test
    	public void testParseXML() {
    		try {
-   			CronTab crontab = CronTab.fromXML(xml);
+   			CronTab crontab = CronTab.fromInput(xml);
    			List entries = crontab.entries();
    			assertEquals("Incorrect number of entries",2,entries.size());
    			assertTrue("Not an CronTabEntry", (entries.get(0) instanceof CronTabEntry) );
@@ -94,7 +99,7 @@ public class TestCronTab {
 
    	public void testMatch() {
    		try {
-   			CronTab crontab = CronTab.fromXML(xml);
+   			CronTab crontab = CronTab.fromInput(xml);
                Date ts = getCal().getTime();
    			ArrayList<CronTabEntry> entries = new ArrayList<CronTabEntry>(crontab.entriesMatching("garibaldi1","3", ts));
    			assertNotNull(entries);

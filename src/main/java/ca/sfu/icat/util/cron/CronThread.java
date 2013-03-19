@@ -24,14 +24,15 @@ public class CronThread extends Thread {
 		this.methodName = methodName;
 	}
 
-	public void run(){
+	@SuppressWarnings({"NullArgumentToVariableArgMethod", "unchecked"})
+    public void run(){
 		try {
 			Class c = Class.forName(className);
 			if (c == null) {
 				logger.info("Class \"" + className + "\" not found.");
 				return;
 			}
-			Method theMethod = c.getMethod(methodName, null);
+			Method theMethod = c.getMethod(methodName,null);
 			if (theMethod == null) {
 				logger.info("Method \"" + methodName + "\" for class \"" + className + "\" not found.");
 				return;

@@ -24,15 +24,15 @@ public class CronTab {
 
    	@SuppressWarnings("UnusedDeclaration")
     public static CronTab fromURL(URL url) throws IOException {
-   		return fromInputStream(url.openStream());
+   		return fromInput(url.openStream());
    	}
 
-   	public static CronTab fromInputStream(InputStream is) throws IOException {
+   	public static CronTab fromInput(InputStream is) throws IOException {
    		XStream xstream = getXStream();
    		return (CronTab)xstream.fromXML(is);
    	}
 
-   	public static CronTab fromXML(String xml) throws IOException {
+   	public static CronTab fromInput(String xml) throws IOException {
    		XStream xstream = getXStream();
    		return (CronTab)xstream.fromXML(xml);
    	}

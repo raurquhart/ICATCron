@@ -7,15 +7,13 @@ package ca.sfu.icat.util.cron;
  * Time: 7:46 PM
  */
 
-import java.util.List;
-
 public class CronDefaultDelegate implements CronDelegate {
 
     public boolean cronWillStart() {
         return true;
     }
 
-    public List crontabFileURLs() {
-        return null;
+    public Object getCrontab() {
+        return this.getClass().getResourceAsStream("cron.xml");
     }
 }

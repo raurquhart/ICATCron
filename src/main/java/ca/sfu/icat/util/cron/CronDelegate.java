@@ -7,10 +7,7 @@ package ca.sfu.icat.util.cron;
  * Time: 7:38 PM
  */
 
-import java.net.URL;
-import java.util.List;
-
 public interface CronDelegate {
     public boolean cronWillStart();
-   	public List<URL> crontabFileURLs();
+    public Object getCrontab();
 }

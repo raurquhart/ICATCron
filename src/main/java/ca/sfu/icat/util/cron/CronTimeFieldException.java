@@ -9,7 +9,9 @@ package ca.sfu.icat.util.cron;
 
 public class CronTimeFieldException extends Exception {
 
-	public CronTimeFieldException(String s) {
+    private static final long serialVersionUID = 119195866293358428L;
+
+    public CronTimeFieldException(String s) {
 		super(s);
 	}
 

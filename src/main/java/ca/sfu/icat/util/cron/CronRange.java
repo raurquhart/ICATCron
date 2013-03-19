@@ -7,6 +7,7 @@ package ca.sfu.icat.util.cron;
  * Time: 10:40 AM
  */
 
+@SuppressWarnings("UnusedDeclaration")
 public class CronRange {
 	private int start;
 	private int max;

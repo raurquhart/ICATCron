@@ -11,9 +11,9 @@ import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
-import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -53,7 +53,7 @@ public class Cron extends Thread {
 
         // Get the hostname
         hostname = hostname();
-        if (hostname() == null) {
+        if (hostname == null) {
             logger.info("Cron could not determine hostname. Exiting.");
             return;
         }
@@ -72,26 +72,18 @@ public class Cron extends Thread {
             // exit if app is terminating
             if (Cron.isTerminating) return;
 
-            List<URL> crontabs = delegate.crontabFileURLs();
-            if (crontabs == null) continue;
-            for (URL url : crontabs) {
-                // get crontab
-                CronTab crontab = null;
-                try {
-                    crontab = CronTab.fromURL(url);
-                } catch (IOException e) {
-                    logger.error("Error getting crontab from resource: " + e.getMessage());
-                    e.printStackTrace();
-                }
-                if (crontab == null) continue;
-                // for each crontab entry:
-                //   if it matches the current timestamp:
-                //   then run the class.method in a new thread, and log it
-                List<CronTabEntry> entries = crontab.entriesMatching(hostname, instanceIdentifier, now);
-                for (CronTabEntry entry : entries) {
-                    logger.info("Running thread for " + entry.name());
-                    new CronThread(entry.className(), entry.methodName()).start();
-                }
+            CronTab crontab = getCronTab();
+            if (crontab == null) {
+                logger.info("Crontab data is empty");
+                continue;
+            }
+            // for each crontab entry:
+            //   if it matches the current timestamp:
+            //   then run the class.method in a new thread, and log it
+            List<CronTabEntry> entries = crontab.entriesMatching(hostname, instanceIdentifier, now);
+            for (CronTabEntry entry : entries) {
+                logger.info("Running thread for " + entry.name());
+                new CronThread(entry.className(), entry.methodName()).start();
             }
         }
     }
@@ -104,7 +96,7 @@ public class Cron extends Thread {
    		this.delegate = delegate;
    	}
 
-   	private boolean sleepToTopOfMinute() {
+   	protected boolean sleepToTopOfMinute() {
    		// Calculate delay til top of minute
    		GregorianCalendar myCalendar = new GregorianCalendar();
    		myCalendar.setTime(new Date());
@@ -121,7 +113,24 @@ public class Cron extends Thread {
    		return true;
    	}
 
-    private String hostname() {
+    protected CronTab getCronTab() {
+        Object crontabData = delegate.getCrontab();
+        if (crontabData == null) return null;
+        CronTab crontab = null;
+        try {
+            if (crontabData instanceof String) {
+                crontab = CronTab.fromInput((String)crontabData);
+            } else {
+                crontab = CronTab.fromInput((InputStream)crontabData);
+            }
+        } catch (IOException e) {
+            logger.warn("Error getting crontab from resource: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return crontab;
+    }
+
+    public String hostname() {
         try {
             InetAddress iAddr = InetAddress.getLocalHost();
             return iAddr.getCanonicalHostName();

@@ -25,7 +25,7 @@ public abstract class CronTimeField {
 	public boolean matches(int timeValue) {
 		for (Object spec : timeSpecArray) {
 			if (spec instanceof Integer) {
-				if (((Integer)spec).equals(timeValue)) return true;
+				if (spec.equals(timeValue)) return true;
 			} else if (spec instanceof CronRange) {
 				if (((CronRange)spec).matches(timeValue)) return true;
 			}
@@ -34,7 +34,7 @@ public abstract class CronTimeField {
 	}
 
 	public String toString() {
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		for (Object spec : timeSpecArray) {
 			buf.append(spec.toString()).append(",");
 		}
@@ -64,12 +64,10 @@ public abstract class CronTimeField {
 				Object timespec;
 				if (s.contains("-")) timespec = parseRange(s);
 				else {
-					timespec = new Integer(validateValue(s));
+					timespec = validateValue(s);
 				}
 				timeSpecArray.add(timespec);
 			}
-		} catch (CronTimeFieldException e) {
-			throw e;
 		} catch (NumberFormatException e) {
 			throw new CronTimeFieldException(e);
 		}

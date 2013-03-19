@@ -12,19 +12,22 @@ import java.util.GregorianCalendar;
 
 public class CronTabEntry {
 
-    private String name;
-   	private String descr;
-   	private CronMinuteField minute;
-   	private CronHourField hour;
-   	private CronDayOfMonthField dayOfMonth;
-   	private CronMonthField month;
-   	private CronDayOfWeekField dayOfWeek;
-   	private String className;
-   	private String methodName;
-   	private String hostname;
-   	private String port;
+    private String name = null;
+   	private String descr = null;
+   	private CronMinuteField minute = null;
+   	private CronHourField hour = null;
+   	private CronDayOfMonthField dayOfMonth = null;
+   	private CronMonthField month = null;
+   	private CronDayOfWeekField dayOfWeek = null;
+   	private String className = null;
+   	private String methodName = null;
+   	private String hostname = null;
+   	private String port = null;
 
-   	public boolean matches(Date ts) {
+    public CronTabEntry() {
+    }
+
+    public boolean matches(Date ts) {
    		GregorianCalendar cal = new GregorianCalendar();
    		cal.setTime(ts);
    		int minute = cal.get(GregorianCalendar.MINUTE);
