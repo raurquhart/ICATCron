@@ -108,6 +108,7 @@ public class TestCron {
     public void testHostname() {
         String hostname = new Cron("test").hostname();
         System.out.println("hostname: " + hostname);
-        assertEquals("icat-rob-macpro.its.sfu.ca", new Cron("test").hostname());
+        assertNotNull(hostname);
+        assertTrue("icat-rob-macpro.its.sfu.ca".equals(hostname)|| hostname.matches("bamboo-build\\d\\.tier2\\.sfu\\.ca"));
     }
 }
